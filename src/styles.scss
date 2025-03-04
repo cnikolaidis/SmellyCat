@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "primeicons/primeicons.css";
+
+body {
+    font-family: 'Manrope', sans-serif;
+}
+
+main {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.border-b-1 {
+    border-width: 1px;
+}
+
+.app-input {
+    padding: 5px !important;
+}

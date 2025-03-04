@@ -1,0 +1,1 @@
+export const isEmptyObject = (o: any): boolean => o && Object.keys(o).length === 0 && Object.getPrototypeOf(o) === Object.prototype;

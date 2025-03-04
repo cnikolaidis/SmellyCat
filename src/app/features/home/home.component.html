@@ -1,0 +1,60 @@
+<form [formGroup]="contactForm" class="grid lg:grid-cols-2 md:grid-cols-1">
+    <div class="m-28">
+        <p class="text-4xl font-extrabold">Contact us</p>
+        <br/>
+        <p class="text-lg font-semibold text-justify">We are all cat persons, so if you got any question, drop it below and we will contact you back!</p>
+        <br/>
+        <div class="flex flex-row gap-2">
+            <label for="username" class="content-center w-1/4 font-bold text-sm">Your Full Name</label>
+            <input pInputText id="username" formControlName="fullName" class="w-3/4 app-input" placeholder="Type your name"/>
+        </div>
+        <br/>
+        <div class="flex flex-row gap-2">
+            <label for="email" class="content-center w-1/4 font-bold text-sm">Your Email</label>
+            <input pInputText id="email" formControlName="email" class="w-3/4 app-input" style="padding: 5px;" placeholder="Type your email"/>
+        </div>
+        <br/>
+        <hr/>
+        <br/>
+        <div class="grid grid-cols-2 gap-4">
+            <div class="flex flex-col">
+                <label class="font-bold text-sm">City</label>
+                <input pInputText type="text" formControlName="city" placeholder="ex. Thessaloniki" class="w-full p-2 border border-gray-300 rounded-lg app-input" />
+            </div>
+            <div class="flex flex-col">
+                <label class="font-bold text-sm">Postal Code</label>
+                <input pInputText type="text" formControlName="postalCode" placeholder="ex. 54658" class="w-full p-2 border border-gray-300 rounded-lg app-input" />
+            </div>
+        </div>
+        <br/>
+        <div class="flex flex-col gap-2">
+            <label for="username" class="font-bold text-sm">Address</label>
+            <input pInputText formControlName="address" placeholder="ex. Thessaloniki" class="w-3/4 app-input" aria-describedby="username-help"/>
+        </div>
+        <br/>
+        <div class="flex flex-col gap-2">
+            <label for="username" class="font-bold text-sm">Your Message</label>
+            <textarea rows="5" formControlName="message" cols="30" pTextarea placeholder="Type your message" style="resize: none;"></textarea>
+        </div>
+        <br/>
+        <div class="flex items-center gap-2">
+            <input type="checkbox" id="terms" formControlName="terms" class="w-4 h-4">
+            <label for="terms" class="text-sm">I agree with the Terms & Conditions</label>
+        </div>
+        <br/>
+        <button class="w-1/4 bg-red-400 text-white font-bold py-2 px-4 rounded-md hover:bg-red-500 transition" (click)="submitForm()">Send!</button>
+    </div>
+    <div class="m-28">
+        <google-map [center]="center" [zoom]="zoom" width="100%" height="500px">
+            <map-marker [position]="center"></map-marker>
+        </google-map>
+        <br/>
+        <p class="text-2xl font-extrabold text-right">Headquarters</p>
+        <br/>
+        <p class="text-lg font-medium text-right">Aristotelous 16, 54658</p>
+        <p class="text-lg font-medium text-right">Thessaloniki, Greece</p>
+        <br/>
+        <p class="text-lg font-medium text-right">+30 231 129 0998</p>
+        <p class="text-lg font-medium text-right">hey&#64;smellycat.gr</p>
+    </div>
+</form>
