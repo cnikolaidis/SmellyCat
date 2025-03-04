@@ -1,10 +1,11 @@
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { GoogleMapsLoaderService } from '../../shared/google-maps-loader.service';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { MailService } from '../../shared/mail.service';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { InputTextModule } from 'primeng/inputtext';
 import { TextareaModule } from 'primeng/textarea';
-import { Component, inject } from '@angular/core';
 import { ImageModule } from 'primeng/image';
 
 @UntilDestroy()
@@ -23,11 +24,14 @@ import { ImageModule } from 'primeng/image';
 		GoogleMapsModule
 	]
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+	@ViewChild('mapContainer', { static: true }) mapContainer!: ElementRef;
+	
 	contactForm!: FormGroup;
 	center: google.maps.LatLngLiteral = { lat: 40.6343, lng: 22.9430 };
 	zoom = 14;
 
+	private googleMapsLoaderSvc: GoogleMapsLoaderService = inject(GoogleMapsLoaderService);
 	private formBuilder: FormBuilder = inject(FormBuilder);
 	private mailSvc: MailService = inject(MailService);
 
@@ -43,6 +47,11 @@ export class HomeComponent {
 		});
 	}
 
+	async ngOnInit() {
+		await this.googleMapsLoaderSvc.load();
+		this.initializeGoogleMap();
+	}
+
 	submitForm() {
 		const mailParams = {
 			receiver: 'Smelly Cat',
@@ -54,5 +63,12 @@ export class HomeComponent {
 			email: this.contactForm.get('email')?.value
 		};
 		this.mailSvc.sendMail(mailParams);
+	}
+
+	private initializeGoogleMap(): any {
+		new google.maps.Map(this.mapContainer.nativeElement, {
+			center: this.center,
+			zoom: this.zoom,
+		});
 	}
 }
