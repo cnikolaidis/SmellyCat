@@ -6,6 +6,8 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { InputTextModule } from 'primeng/inputtext';
 import { TextareaModule } from 'primeng/textarea';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 import { ImageModule } from 'primeng/image';
 
 @UntilDestroy()
@@ -14,7 +16,11 @@ import { ImageModule } from 'primeng/image';
 	templateUrl: './home.component.html',
 	styleUrl: './home.component.scss',
 	standalone: true,
+	providers: [
+		MessageService
+	],
 	imports: [
+		ToastModule,
 		ImageModule,
 		TextareaModule,
 		InputTextModule,
@@ -32,6 +38,7 @@ export class HomeComponent implements OnInit {
 	zoom = 14;
 
 	private googleMapsLoaderSvc: GoogleMapsLoaderService = inject(GoogleMapsLoaderService);
+	private messageSvc: MessageService = inject(MessageService);
 	private formBuilder: FormBuilder = inject(FormBuilder);
 	private mailSvc: MailService = inject(MailService);
 
@@ -53,6 +60,10 @@ export class HomeComponent implements OnInit {
 	}
 
 	submitForm() {
+		if (!this.contactForm.valid) {
+			this.messageSvc.add({ severity: 'warn', summary: 'Warning', detail: 'Please complete all the form fields correctly', life: 3000 });
+			return;
+		}
 		const mailParams = {
 			receiver: 'Smelly Cat',
 			fullName: this.contactForm.get('fullName')?.value,
@@ -62,7 +73,11 @@ export class HomeComponent implements OnInit {
 			message: this.contactForm.get('message')?.value,
 			email: this.contactForm.get('email')?.value
 		};
-		this.mailSvc.sendMail(mailParams);
+		this.mailSvc
+			.sendMail(mailParams)
+			.then(() => this.messageSvc.add({ severity: 'success', summary: 'Success', detail: 'Message was sent successfully', life: 3000 }))
+			.catch(() => this.messageSvc.add({ severity: 'error', summary: 'Error', detail: 'Message was not sent correctly', life: 3000 }))
+			.finally(() => this.contactForm.reset());
 	}
 
 	private initializeGoogleMap(): any {
