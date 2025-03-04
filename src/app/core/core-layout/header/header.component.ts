@@ -1,5 +1,6 @@
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { ButtonModule } from 'primeng/button';
+import { DrawerModule } from 'primeng/drawer'
 import { ImageModule } from 'primeng/image';
 import { Component } from '@angular/core';
 
@@ -12,6 +13,9 @@ import { Component } from '@angular/core';
     imports: [
         ImageModule,
         ButtonModule,
+        DrawerModule,
     ]
 })
-export class HeaderComponent {}
+export class HeaderComponent {
+    drawerOpen: boolean = false;
+}

@@ -3,12 +3,24 @@
         <p-image src="sc_hdr_logo.png" alt="Image" width="123" height="30"/>
     </div>
     <div class="self-center place-self-end">
-        <div class="me-32 space-x-12">
+        <div class="flex flex-auto me-32 space-x-12 lg:block md:hidden">
             <a class="text-gray-500 text-sm font-bold cursor-pointer">Adopt Kittens</a>
             <a class="text-gray-500 text-sm font-bold cursor-pointer">Kitty Stores</a>
             <a class="text-gray-500 text-sm font-bold cursor-pointer">About Us</a>
             <a class="text-gray-500 text-sm font-bold cursor-pointer">Blog</a>
             <a class="text-gray-500 text-sm font-bold cursor-pointer">Contact</a>
         </div>
+        <p-button class="lg:hidden md:block me-32" icon="pi pi-bars" severity="contrast" (click)="drawerOpen = !drawerOpen"/>
+        <p-drawer [(visible)]="drawerOpen" header="Smelly Cat">
+            <a class="text-gray-500 text-lg font-bold cursor-pointer">Adopt Kittens</a>
+            <br/>
+            <a class="text-gray-500 text-lg font-bold cursor-pointer">Kitty Stores</a>
+            <br/>
+            <a class="text-gray-500 text-lg font-bold cursor-pointer">About Us</a>
+            <br/>
+            <a class="text-gray-500 text-lg font-bold cursor-pointer">Blog</a>
+            <br/>
+            <a class="text-gray-500 text-lg font-bold cursor-pointer">Contact</a>
+        </p-drawer>
     </div>
 </div>
