@@ -1,4 +1,5 @@
 import { UntilDestroy } from '@ngneat/until-destroy';
+import { CardModule } from 'primeng/card';
 import { Component } from '@angular/core';
 
 @UntilDestroy()
@@ -7,5 +8,8 @@ import { Component } from '@angular/core';
     templateUrl: './error.component.html',
     styleUrl: './error.component.scss',
     standalone: true,
+    imports: [
+        CardModule
+    ]
 })
 export class ErrorComponent {}
